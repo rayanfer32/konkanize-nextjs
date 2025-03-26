@@ -51,44 +51,28 @@ export default function AppUI() {
     return await response.json();
   };
 
+  const renderPart = (heading, words) => {
+    return (
+      <div className="">
+        <p className="text-lg font-semibold text-gray-800 mb-1">{heading}</p>
+        <ul className="list-disc list-inside space-y-2">
+          {words.map((word: string, index: number) => (
+            <li key={index} className="text-gray-700 text-sm">
+              {word}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
+
   const renderTranslation = (translation: any | null) => {
-    if (translation) {
+    if (Object.keys(translation).length != 0) {
       return (
         <div className="flex flex-col gap-2">
-          <div className="">
-            <p className="text-lg font-semibold text-gray-800 mb-1">Nouns:</p>
-            <ul className="list-disc list-inside space-y-2">
-              {translation?.Noun?.map((word: string, index: number) => (
-                <li key={index} className="text-gray-700 text-sm">
-                  {word}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <p className="text-lg font-semibold text-gray-800 mb-1">Verbs:</p>
-            <ul className="list-disc list-inside space-y-2">
-              {translation?.Verb?.map((word: string, index: number) => (
-                <li key={index} className="text-gray-700 text-sm">
-                  {word}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <p className="text-lg font-semibold text-gray-800 mb-1">
-              Pronouns:
-            </p>
-            <ul className="list-disc list-inside space-y-2">
-              {translation?.Pronoun?.map((word: string, index: number) => (
-                <li key={index} className="text-gray-700 text-sm">
-                  {word}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {Object.keys(translation).map((key) =>
+            renderPart(key, translation[key])
+          )}
         </div>
       );
     }
@@ -133,7 +117,9 @@ export default function AppUI() {
 
   return (
     <>
-      <h3 className="font-bold text-3xl text-center mt-5 text-blue-500 shadow-sm p-4">Konkanize</h3>
+      <h3 className="font-bold text-3xl text-center mt-5 text-blue-500 shadow-sm p-4">
+        Konkanize
+      </h3>
       <div className="p-8 mt-4 grid grid-cols-1 md:grid-cols-3 gap-6 dark">
         <Card className="p-4 text-gray-900 border-gray-200">
           <div className="flex justify-between items-center mb-3">
@@ -162,7 +148,7 @@ export default function AppUI() {
             className="min-h-[640px] text-gray-800 border-gray-200 bg-white placeholder:text-gray-400"
             value={translation}
             onChange={(e: any) => setTranslation(e.target.value)}
-            spellcheck={false}
+            spellCheck={false}
           />
         </Card>
       </div>

@@ -16,7 +16,7 @@ export const Textarea: FC<any> = ({
       value={value}
       onInput={onChange}
       placeholder={placeholder}
-      class={finalClass}
+      className={finalClass}
       {...rest}
     />
   );
