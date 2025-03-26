@@ -67,7 +67,7 @@ export default function AppUI() {
   };
 
   const renderTranslation = (translation: any | null) => {
-    if (Object.keys(translation).length != 0) {
+    if (translation && Object.keys(translation).length != 0) {
       return (
         <div className="flex flex-col gap-2">
           {Object.keys(translation).map((key) =>
